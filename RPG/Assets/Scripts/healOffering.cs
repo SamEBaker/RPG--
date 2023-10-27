@@ -4,25 +4,28 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class healOffering : MonoBehaviour
+public class healOffering : MonoBehaviourPun
 {
     public int value = 50;
+    public int cost = -100;
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-            if(player.gold >= 100)
-            {
-                player.gold -= 100;
-                player.GameUI.instance.UpdateGoldText(player.gold);
-                player.photonView.RPC("Heal", player.photonPlayer, value);
-                pleyer.GameUI.instance.UpdateTextBlessed();
-            }
-            else
-            {
-                player.GameUI.instance.UpdateTextBroke();
-            }
+            PhotonView photonView = collision.GetComponent<PhotonView>();
+            if(photonView != null && photonView.IsMine)
+                if(player.gold >= 100)
+                {
+                    player.photonView.RPC("GiveGold", player.photonPlayer, cost);
+                    GameUI.instance.UpdateGoldText(player.gold);
+                    player.photonView.RPC("Heal", player.photonPlayer, value);
+                    GameUI.instance.UpdateTextBlessed();
+                }
+                else
+                {
+                    GameUI.instance.UpdateTextBroke();
+                }
         }
     }
 }
