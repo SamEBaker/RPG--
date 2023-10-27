@@ -5,16 +5,19 @@ using Photon.Pun;
 
 public class chest : MonoBehaviourPun
 {
-    public Animator chestanim;
+     PlayerController controller;
+
+    [PunRPC]
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-            player.hasKey = true;
+            if (!PhotonNetwork.IsMasterClient)
+                return;
+            PhotonNetwork.Equals(controller.hasKey, true);
             //chestanim.SetTrigger("open");
             PhotonNetwork.Destroy(gameObject);
-            GameUI.instance.UpdateTextCata();
+            photonView.RPC("UpdateTextCata()", RpcTarget.All);
         }
     }
 }
