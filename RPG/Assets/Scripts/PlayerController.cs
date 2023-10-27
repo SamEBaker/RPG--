@@ -145,4 +145,11 @@ public class PlayerController : MonoBehaviourPun
         gold += goldToGive;
         GameUI.instance.UpdateGoldText(gold);
     }
+
+    [PunRPC]
+    void GetKey()
+    {
+        hasKey = true;
+        GameUI.instance.UpdateTextCata();
+    }
 }
