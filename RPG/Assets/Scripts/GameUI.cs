@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameUI : MonoBehaviour
+public class GameUI : MonoBehaviourPunCallBakcs
 {
     public TextMeshProUGUI goldText;
     public static GameUI instance;
@@ -33,7 +33,7 @@ public class GameUI : MonoBehaviour
     {
         infoText.text = "The Statue cries...Your offer isnt enough...ur too broke...";
     }
-
+    [PunRPC]
     public void UpdateTextCata()
     {
         infoText.text = "Kill all the monsters in the Catacombs!";
