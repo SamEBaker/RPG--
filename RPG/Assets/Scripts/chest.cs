@@ -10,11 +10,11 @@ public class chest : MonoBehaviourPun
     [PunRPC]
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+       if (collision.CompareTag("Player"))
         {
             if (!PhotonNetwork.IsMasterClient)
                 return;
-            PhotonNetwork.Equals(controller.hasKey, true);
+            photonView.RPC("GetKey",RpcTarget.All);
             //chestanim.SetTrigger("open");
             PhotonNetwork.Destroy(gameObject);
             photonView.RPC("UpdateTextCata()", RpcTarget.All);
