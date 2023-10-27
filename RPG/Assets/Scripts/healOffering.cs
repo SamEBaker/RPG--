@@ -15,13 +15,13 @@ public class healOffering : MonoBehaviour
             if(player.gold >= 100)
             {
                 player.gold -= 100;
-                GameUI.instance.UpdateGoldText(player.gold);
+                player.GameUI.instance.UpdateGoldText(player.gold);
                 player.photonView.RPC("Heal", player.photonPlayer, value);
-                GameUI.instance.UpdateTextBlessed();
+                pleyer.GameUI.instance.UpdateTextBlessed();
             }
             else
             {
-                GameUI.instance.UpdateTextBroke();
+                player.GameUI.instance.UpdateTextBroke();
             }
         }
     }
