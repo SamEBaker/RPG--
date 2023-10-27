@@ -9,8 +9,6 @@ public class healOffering : MonoBehaviour
     public int value = 50;
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
         if (collision.CompareTag("Player"))
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
